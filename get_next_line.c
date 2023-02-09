@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfalasch <pfalasch@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: pfalasch <pfalasch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 10:45:43 by pfalasch          #+#    #+#             */
-/*   Updated: 2023/02/07 18:57:18 by pfalasch         ###   ########.fr       */
+/*   Updated: 2023/02/08 16:42:44 by pfalasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,34 @@ char	*get_new_line(char *line)
 char	*clean_new_line(char *line)
 {
 	size_t	i;
+	char	*tmp;
 
 	i = 0;
-	while (line[i] != '\n' ||)
+	while (line[i] != '\n' && line[i])
 		i++;
-	return (line + i + 1);
+	if (line[i] == '\n')
+	{
+		tmp = ft_strdup(line + i + 1);
+		free(line);
+		return (tmp);
+	}
+	if (line[i] == '\0')
+	{
+		free(line);
+		return (line + i);
+	}
 }
 
-int	*get_next_line(int fd)
+char	*get_next_line(int fd)
 {
 	static char	*line;
 	char		*string;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	line = get_line(line);
+	line = get_line(fd, line);
+	if (!line)
+		return (NULL);
 	string = get_new_line(line);
 	line = clean_new_line(line);
 	return (string);

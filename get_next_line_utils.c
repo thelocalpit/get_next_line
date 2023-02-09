@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfalasch <pfalasch@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: pfalasch <pfalasch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 10:46:46 by pfalasch          #+#    #+#             */
-/*   Updated: 2023/02/07 18:56:01 by pfalasch         ###   ########.fr       */
+/*   Updated: 2023/02/08 20:43:16 by pfalasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_strchr(const char *s, int c)
 	return (0);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*new_str;
 	int		i;
@@ -48,14 +48,15 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!new_str)
 		return (NULL);
 	i = 0;
-	while (s1[i] != '\0')
+	while (s1[i])
 	{
 		new_str[i] = s1[i];
-		i++;
+		i++,
 	}
 	j = 0;
-	while (s2[j] != '\0')
+	while (s2[j])
 		new_str[i++] = s2[j++];
 	new_str[i] = '\0';
+	free(s1);
 	return (new_str);
 }
