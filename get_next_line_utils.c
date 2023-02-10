@@ -6,15 +6,15 @@
 /*   By: pfalasch <pfalasch@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 10:46:46 by pfalasch          #+#    #+#             */
-/*   Updated: 2023/02/09 14:58:45 by pfalasch         ###   ########.fr       */
+/*   Updated: 2023/02/10 16:00:36 by pfalasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *str)
+int	ft_strlen(char *str)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (str[i] != '\0')
@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(char *s, int c)
 {
 	if (!s)
 		return (NULL);
@@ -36,8 +36,8 @@ char	*ft_strchr(const char *s, int c)
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*new_str;
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 
 	if (!s2)
 		return (NULL);

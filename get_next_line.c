@@ -6,7 +6,7 @@
 /*   By: pfalasch <pfalasch@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 10:45:43 by pfalasch          #+#    #+#             */
-/*   Updated: 2023/02/09 14:50:51 by pfalasch         ###   ########.fr       */
+/*   Updated: 2023/02/10 16:32:07 by pfalasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*get_line(int fd, char *line)
 {
 	char	*buf;
-	size_t	i;
+	int		i;
 
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
@@ -38,7 +38,7 @@ char	*get_line(int fd, char *line)
 
 char	*get_new_line(char *line)
 {
-	size_t	i;
+	int		i;
 	char	*next_str;
 
 	i = 0;
@@ -48,14 +48,14 @@ char	*get_new_line(char *line)
 	if (!next_str)
 		return (0);
 	i = 0;
-	while (line[i] && line[i] != '/n')
+	while (line[i] && line[i] != '\n')
 	{
 		next_str[i] = line[i];
 		i++;
 	}
-	if (line[i] == '/n')
+	if (line[i] == '\n')
 	{
-		next_str[i++] = '/n';
+		next_str[i++] = '\n';
 	}
 	next_str[i] = 0;
 	return (next_str);
@@ -63,23 +63,28 @@ char	*get_new_line(char *line)
 
 char	*clean_new_line(char *line)
 {
-	size_t	i;
+	int		i;
+	int		j;
 	char	*tmp;
 
 	i = 0;
+	j = 0;
 	while (line[i] != '\n' && line[i])
 		i++;
-	if (line[i] == '\n')
-	{
-		tmp = ft_strdup(line + i + 1);
-		free(line);
-		return (tmp);
-	}
 	if (line[i] == '\0')
 	{
 		free(line);
-		return (line + i);
+		return (NULL);
 	}
+	line = &line[i];
+	tmp = (char *)malloc(sizeof(char) * (ft_strlen(line) + 1));
+	if (!tmp)
+		return (NULL);
+	while (line[i])
+		tmp[j++] = line[i++];
+	tmp[j] = '\0';
+	free(line);
+	return (tmp);
 }
 
 char	*get_next_line(int fd)
