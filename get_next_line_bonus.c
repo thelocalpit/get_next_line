@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfalasch <pfalasch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pfalasch <pfalasch@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 09:15:48 by pfalasch          #+#    #+#             */
-/*   Updated: 2023/02/13 09:48:28 by pfalasch         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:00:56 by pfalasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,4 +125,31 @@ char	*get_next_line(int fd)
 	string_out = get_new_line(line[fd]);
 	line[fd] = clean_new_line(line[fd]);
 	return (string_out);
+}
+
+int main(void)
+{
+	int fd;
+	char *line;
+
+	fd = open("test_file.txt", O_RDONLY);
+	if (fd == -1)
+	{
+		printf("Failed to open file\n");
+		return 1;
+	}
+
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		printf("%s", line);
+		free(line);
+	}
+
+	if (close(fd) == -1)
+	{
+		printf("Failed to close file\n");
+		return 1;
+	}
+	
+	return 0;
 }
