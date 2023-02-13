@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfalasch <pfalasch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 10:45:43 by pfalasch          #+#    #+#             */
-/*   Updated: 2023/02/13 09:54:41 by pfalasch         ###   ########.fr       */
+/*   Created: 2023/02/13 09:15:48 by pfalasch          #+#    #+#             */
+/*   Updated: 2023/02/13 09:48:28 by pfalasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 /* questa funzione ci ricava la linea non pulita. 
 ovvero ci possono essere extra caratteri */
@@ -95,17 +95,34 @@ char	*clean_new_line(char *line)
 	return (tmp);
 }
 
+/* In the given code, OPEN_MAX is used as an array size to define
+the line array. The line array is defined as a static array 
+of character pointers, and each element of the array is indexed 
+by a file descriptor (fd).
+
+When the function get_next_line is called with a file descriptor fd, 
+it accesses the corresponding element in the line array using 
+the expression line[fd]. The purpose of this array is to store a 
+buffer of characters for each file descriptor, so that subsequent 
+calls to get_next_line with the same file descriptor can access 
+the same buffer and retrieve the next line of text from the file.
+
+So, OPEN_MAX represents the maximum number of open files that can 
+be processed by the function simultaneously. This value determines 
+the size of the line array, and therefore the maximum number of 
+file descriptors that the function can handle. */
+
 char	*get_next_line(int fd)
 {
-	static char	*line;
+	static char	*line[OPEN_MAX];
 	char		*string_out;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	line = get_line(fd, line);
-	if (!line)
+	line[fd] = get_line(fd, line[fd]);
+	if (!line[fd])
 		return (NULL);
-	string_out = get_new_line(line);
-	line = clean_new_line(line);
+	string_out = get_new_line(line[fd]);
+	line[fd] = clean_new_line(line[fd]);
 	return (string_out);
 }

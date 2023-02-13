@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfalasch <pfalasch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 10:46:46 by pfalasch          #+#    #+#             */
-/*   Updated: 2023/02/13 09:52:54 by pfalasch         ###   ########.fr       */
+/*   Created: 2023/02/13 09:15:29 by pfalasch          #+#    #+#             */
+/*   Updated: 2023/02/13 09:52:43 by pfalasch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	ft_strlen(char *str)
 {
